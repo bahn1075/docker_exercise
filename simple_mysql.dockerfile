@@ -1,5 +1,5 @@
 # Rocky Linux 최신 이미지 사용
-FROM rockylinux:latest
+FROM rockylinux:9-minimal
 
 # 환경 변수 설정
 ENV MYSQL_ROOT_PASSWORD=vkfrhd33
