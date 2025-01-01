@@ -20,4 +20,4 @@ RUN mkdir -p /var/lib/mysql && \
     chown -R mysql:mysql /var/lib/mysql
 
 # MySQL 데몬 실행
-CMD ["mysqld"]
+CMD ["mysqld --user=root"]
