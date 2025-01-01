@@ -15,9 +15,12 @@ RUN dnf -y update && \
 # MySQL 포트 노출
 EXPOSE 3306
 
-# 데이터 디렉토리 생성 및 권한 설정
+# MySQL 데이터 디렉토리 및 권한 설정
 RUN mkdir -p /var/lib/mysql && \
     chown -R mysql:mysql /var/lib/mysql
 
+# MySQL 사용자로 실행
+USER mysql
+
 # MySQL 데몬 실행
-CMD ["mysqld --user=root"]
+CMD ["mysqld"]
