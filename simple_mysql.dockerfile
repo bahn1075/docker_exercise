@@ -2,7 +2,7 @@
 FROM rockylinux:9
 
 # 환경 변수 설정
-ENV MYSQL_ROOT_PASSWORD=vkfrhd33
+#ENV MYSQL_ROOT_PASSWORD=vkfrhd33
 
 # 필수 패키지 설치 및 MySQL 리포지토리 추가
 RUN dnf -y update && \
