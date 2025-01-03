@@ -1,26 +1,18 @@
-# Rocky Linux 최신 9 버전 이미지 사용
-FROM rockylinux:9-minimal
+# 기본 이미지 설정 (Alpine Linux)
+FROM alpine:latest
 
-# 환경 변수 설정
-#ENV MYSQL_ROOT_PASSWORD=vkfrhd33
+# MySQL 설치를 위한 패키지 관리자 설정
+RUN apk add --no-cache mysql-client mysql-server
 
-# 필수 패키지 설치 및 MySQL 리포지토리 추가
-RUN dnf -y update && \
-    dnf -y install wget && \
-    wget https://repo.mysql.com/mysql80-community-release-el9.rpm && \
-    dnf -y install mysql80-community-release-el9.rpm && \
-    dnf -y install mysql-server && \
-    dnf clean all
+# MySQL 데이터 디렉토리 생성
+RUN mkdir -p /var/lib/mysql
 
-# MySQL 포트 노출
-EXPOSE 3306
+# MySQL 초기화 스크립트 실행
+RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-# MySQL 데이터 디렉토리 및 권한 설정
-RUN mkdir -p /var/lib/mysql && \
-    chown -R mysql:mysql /var/lib/mysql
+# MySQL 환경 설정 (root 비밀번호 변경 등)
+ENV MYSQL_ROOT_PASSWORD=your_strong_password
+# 다른 환경 변수 추가 가능 (예: MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD)
 
-# MySQL 사용자로 실행
-USER mysql
-
-# MySQL 데몬 실행
+# MySQL 서비스 시작
 CMD ["mysqld"]
